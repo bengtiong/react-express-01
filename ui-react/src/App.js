@@ -3,6 +3,24 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      message: ""
+    }
+  }
+
+  componentDidMount(){
+    return fetch('/api/hello')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          message: responseJson.message
+        });
+      })
+  }
+
   render() {
     return (
       <div className="App">
@@ -12,6 +30,7 @@ class App extends Component {
         </div>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
+          Message from API: <b>{this.state.message}</b>
         </p>
       </div>
     );
